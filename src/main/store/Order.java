@@ -54,17 +54,27 @@ public class Order {
 
 	public float total() {
 		float totalItems = 0;
+		
 		totalItems = calculateTotalForItems(totalItems);
-
-		if (this.deliveryCountry == "USA"){
-			// total=totalItems + tax + 0 shipping
-			return totalItems + totalItems * 5 / 100;
-		}
+		int shipping=calculateShipping();
+		float tax=calculateTax(totalItems);
+		
 
 		// total=totalItemst + tax + 15 shipping
-		return totalItems + totalItems * 5 / 100 + 15;
+		return totalItems + tax + shipping;
 	}
-
+	private float calculateTax(float totalItems) {
+		
+		
+		return  totalItems*5/100;
+	}
+	private int calculateShipping() {
+		if (this.deliveryCountry == "USA") {
+			return 0;
+		}
+		
+		return 15;
+	}
 	private float calculateTotalForItems(float totalItems) {
 		for (OrderItem item : items) {
 			totalItems = calculateTotalForItem(totalItems, item);
