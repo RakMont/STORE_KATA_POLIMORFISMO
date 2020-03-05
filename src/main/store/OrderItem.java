@@ -20,4 +20,22 @@ public class OrderItem {
 	public int getQuantity() {
 		return quantity;
 	}
+
+	float calculateTotalForItem(float totalItems) {
+		float totalItem=0;
+		float itemAmount = getProduct().getUnitPrice() * getQuantity();
+		if (getProduct().getCategory() == ProductCategory.Accessories) {			
+			totalItem = itemAmount - itemAmount * 10 / 100;
+		}
+		if (getProduct().getCategory() == ProductCategory.Bikes) {
+			// 20% discount for Bikes
+			totalItem = itemAmount - itemAmount * 20 / 100;
+		}
+		if (getProduct().getCategory() == ProductCategory.Cloathing) {
+			
+			totalItem = itemAmount - getProduct().getUnitPrice();
+		}
+		totalItems += totalItem;
+		return totalItems;
+	}
 }
